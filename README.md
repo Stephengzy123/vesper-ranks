@@ -14,8 +14,10 @@ SESSION_SECRET="replace-with-a-long-random-string"
 Generate password hashes with:
 
 ```bash
-npm run hash-password -- "your-password"
+pnpm run hash-password -- 'your-password'
 ```
+
+Use single quotes when your password contains `$`. In most shells, `$` inside double quotes can be treated like a variable and change the password before the hash script receives it.
 
 ## Database
 
@@ -28,6 +30,12 @@ pnpm run db:setup
 ```
 
 Deploys run the same setup automatically before `next build` through the `prebuild` script. The schema uses `if not exists`, so it creates missing tables without deleting leaderboard data.
+
+For an offline local build, skip the database setup hook:
+
+```bash
+SKIP_DB_SETUP=1 pnpm run build
+```
 
 ## Routes
 
