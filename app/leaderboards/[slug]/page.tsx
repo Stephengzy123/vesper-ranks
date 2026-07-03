@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Settings } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getLeaderboard } from "@/lib/db";
+import { getSession } from "@/lib/session";
 import { EntryList } from "@/components/entry-list";
 
 type BoardPageProps = {
@@ -11,13 +13,24 @@ export default async function BoardPage({ params }: BoardPageProps) {
   const { slug } = await params;
   const board = await getLeaderboard(slug);
   if (!board) notFound();
+  const session = await getSession().catch(() => null);
+  const canManage = session?.role === "admin" || (session?.role === "manager" && session.slug === slug);
 
   return (
     <main className="page-shell">
       <section className="board-hero">
         <Link className="back-link" href="/home">Home</Link>
-        <p className="eyebrow">{board.measurement}{board.maxValue ? ` out of ${board.maxValue}` : ""}</p>
-        <h1>{board.name}</h1>
+        <div className="workspace-heading">
+          <div>
+            <p className="eyebrow">{board.measurement}{board.maxValue ? ` out of ${board.maxValue}` : ""}</p>
+            <h1>{board.name}</h1>
+          </div>
+          {canManage ? (
+            <Link className="icon-button" href={`/manage/${slug}`} aria-label={`Manage ${board.name}`}>
+              <Settings size={20} aria-hidden="true" />
+            </Link>
+          ) : null}
+        </div>
         <p>{board.description || "A live leaderboard managed on VesperRanks."}</p>
       </section>
       <EntryList board={board} />

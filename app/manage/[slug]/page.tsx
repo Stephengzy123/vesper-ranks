@@ -76,11 +76,12 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
           <div className="workspace-actions">
             <Link className="preview-button" href={`/leaderboards/${slug}`}>Preview leaderboard</Link>
             <Link
-              className="icon-button"
+              className="settings-button"
               href={showSettings ? `/manage/${slug}` : `/manage/${slug}?settings=1`}
               aria-label={showSettings ? "Back to entries" : "Open settings"}
             >
               <Settings size={20} aria-hidden="true" />
+              <span>{showSettings ? "Entries" : "Account settings"}</span>
             </Link>
           </div>
         </div>
