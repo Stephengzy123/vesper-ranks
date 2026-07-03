@@ -138,6 +138,18 @@ export async function verifyManager(slug: string, username: string, password: st
   return ok ? rowToLeaderboard(rows[0]) : null;
 }
 
+export async function verifyManagerByUsername(username: string, password: string) {
+  const db = requireDb();
+  const rows = await db`
+    select * from leaderboards
+    where manager_username = ${username}
+    limit 1
+  `;
+  if (!rows[0]) return null;
+  const ok = await bcrypt.compare(password, String(rows[0].manager_password_hash));
+  return ok ? rowToLeaderboard(rows[0]) : null;
+}
+
 export async function updateManagerPassword(slug: string, oldPassword: string, newPassword: string) {
   const db = requireDb();
   const rows = await db`select * from leaderboards where slug = ${slug} limit 1`;
@@ -201,15 +213,21 @@ export async function deleteEntry(slug: string, id: string) {
 
 export async function updateLeaderboardSettings(
   slug: string,
-  input: { measurement: string; maxValue: number | null; description: string }
+  input: { name: string; measurement: string; maxValue: number | null; description: string }
 ) {
   const db = requireDb();
   await db`
     update leaderboards
-    set measurement = ${input.measurement},
+    set name = ${input.name},
+        measurement = ${input.measurement},
         max_value = ${input.maxValue},
         description = ${input.description},
         updated_at = now()
     where slug = ${slug}
   `;
+}
+
+export async function deleteLeaderboard(slug: string) {
+  const db = requireDb();
+  await db`delete from leaderboards where slug = ${slug}`;
 }

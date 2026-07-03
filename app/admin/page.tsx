@@ -1,21 +1,27 @@
-import { createLeaderboardAction, adminLoginAction } from "@/app/actions";
+import Link from "next/link";
+import { Settings } from "lucide-react";
+import { createLeaderboardAction, staffLoginAction } from "@/app/actions";
+import { listLeaderboards } from "@/lib/db";
 import { getSession } from "@/lib/session";
 
 type AdminPageProps = {
-  searchParams?: Promise<{ error?: string }>;
+  searchParams?: Promise<{ error?: string; ok?: string }>;
 };
 
 export default async function AdminPage({ searchParams }: AdminPageProps) {
   const params = await searchParams;
   const session = await getSession().catch(() => null);
   const error = params?.error ? decodeURIComponent(params.error) : "";
+  const ok = params?.ok ? decodeURIComponent(params.ok) : "";
+  const boards = session?.role === "admin" ? await listLeaderboards() : [];
 
   return (
-    <main className="page-shell narrow">
+    <main className={session?.role === "admin" ? "page-shell" : "page-shell narrow"}>
       <section className="tool-panel">
-        <p className="eyebrow">Admin</p>
-        <h1>Control room</h1>
+        <p className="eyebrow">Staff</p>
+        <h1>{session?.role === "admin" ? "Control room" : "Staff sign-in"}</h1>
         {error ? <p className="form-message error">{error}</p> : null}
+        {ok ? <p className="form-message ok">{ok}</p> : null}
 
         {session?.role === "admin" ? (
           <form className="form-stack" action={createLeaderboardAction}>
@@ -47,7 +53,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
             <button type="submit">Create leaderboard</button>
           </form>
         ) : (
-          <form className="form-stack" action={adminLoginAction}>
+          <form className="form-stack" action={staffLoginAction}>
             <label>
               Username
               <input name="username" autoComplete="username" required />
@@ -56,10 +62,32 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               Password
               <input name="password" type="password" autoComplete="current-password" required />
             </label>
-            <button type="submit">Enter admin</button>
+            <button type="submit">Sign in</button>
+            <p className="quiet-copy">
+              Admins use the global staff account. Managers use their leaderboard username and password.
+            </p>
           </form>
         )}
       </section>
+
+      {session?.role === "admin" ? (
+        <section className="tool-panel admin-board-panel">
+          <h2>Leaderboards</h2>
+          <div className="manager-list">
+            {boards.map((board) => (
+              <div className="admin-board-row" key={board.id}>
+                <div>
+                  <strong>{board.name}</strong>
+                  <p>{board.managerUsername}</p>
+                </div>
+                <Link className="icon-button" href={`/manage/${board.slug}`} aria-label={`Manage ${board.name}`}>
+                  <Settings size={18} aria-hidden="true" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import {
   adjustEntryAction,
   changeManagerPasswordAction,
+  deleteLeaderboardAction,
   deleteEntryAction,
   managerLoginAction,
   saveEntryAction,
@@ -26,8 +27,9 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
   const error = paramsValue?.error ? decodeURIComponent(paramsValue.error) : "";
   const ok = paramsValue?.ok ? decodeURIComponent(paramsValue.ok) : "";
   const isManager = session?.role === "manager" && session.slug === slug;
+  const canManage = session?.role === "admin" || isManager;
 
-  if (!isManager) {
+  if (!canManage) {
     const login = managerLoginAction.bind(null, slug);
     return (
       <main className="page-shell narrow">
@@ -57,6 +59,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
   const adjustEntry = adjustEntryAction.bind(null, slug);
   const changePassword = changeManagerPasswordAction.bind(null, slug);
   const updateSettings = updateSettingsAction.bind(null, slug);
+  const deleteBoard = deleteLeaderboardAction.bind(null, slug);
 
   return (
     <main className="page-shell">
@@ -64,7 +67,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
         <Link className="back-link" href={`/leaderboards/${slug}`}>View public board</Link>
         <p className="eyebrow">Manager workspace</p>
         <h1>{board.name}</h1>
-        <p>{board.entries.length}/100 entries</p>
+        <p>{session?.role === "admin" ? "Admin access" : "Manager access"} · {board.entries.length}/100 entries</p>
         {error ? <p className="form-message error">{error}</p> : null}
         {ok ? <p className="form-message ok">{ok}</p> : null}
       </section>
@@ -92,6 +95,10 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
         <div className="tool-panel">
           <h2>Board settings</h2>
           <form className="form-stack" action={updateSettings}>
+            <label>
+              Leaderboard name
+              <input name="name" required defaultValue={board.name} minLength={2} maxLength={80} />
+            </label>
             <label>
               Description
               <textarea name="description" defaultValue={board.description} maxLength={240} />
@@ -127,6 +134,16 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
           </form>
         </div>
       </section>
+
+      {session?.role === "admin" ? (
+        <section className="tool-panel danger-panel">
+          <h2>Delete leaderboard</h2>
+          <p className="quiet-copy">This permanently removes the leaderboard and all of its entries.</p>
+          <form action={deleteBoard}>
+            <button className="danger-button" type="submit">Delete leaderboard</button>
+          </form>
+        </section>
+      ) : null}
 
       <section className="tool-panel">
         <h2>Entries</h2>

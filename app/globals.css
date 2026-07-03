@@ -244,6 +244,10 @@ h2 {
   box-shadow: 0 34px 68px rgba(0, 0, 0, 0.38), inset 0 0 0 1px rgba(53, 92, 156, 0.18);
 }
 
+.card-main-link {
+  display: contents;
+}
+
 .card-topline,
 .card-stat,
 .entry-heading {
@@ -251,6 +255,31 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.card-actions,
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.icon-button {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--surface-high);
+  color: var(--ink-soft);
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.icon-button:hover {
+  color: var(--ink);
+  background: var(--navy);
+  transform: translateY(-1px);
 }
 
 .rank-chip {
@@ -392,6 +421,26 @@ h2 {
   gap: 10px;
 }
 
+.admin-board-panel {
+  margin-top: 18px;
+}
+
+.admin-board-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--surface-low);
+}
+
+.admin-board-row p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .manager-entry {
   display: grid;
   gap: 12px;
@@ -435,10 +484,18 @@ h2 {
   font-weight: 700;
 }
 
-.row-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.danger-panel {
+  margin: 18px 0;
+  background: rgba(60, 22, 24, 0.72);
+}
+
+.danger-button {
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--danger);
+  color: #36080a;
+  font-weight: 800;
 }
 
 @media (max-width: 720px) {

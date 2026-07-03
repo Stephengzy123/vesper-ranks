@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { listLeaderboards } from "@/lib/db";
+import { getSession } from "@/lib/session";
 import { LeaderboardCard } from "@/components/leaderboard-card";
 
 type HomePageProps = {
@@ -10,6 +11,7 @@ type HomePageProps = {
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const q = params?.q ?? "";
+  const session = await getSession().catch(() => null);
   const boards = await listLeaderboards(q);
 
   return (
@@ -34,7 +36,11 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
       <section className="board-grid" aria-label="Leaderboards">
         {boards.map((board) => (
-          <LeaderboardCard key={board.id} board={board} />
+          <LeaderboardCard
+            key={board.id}
+            board={board}
+            canManage={session?.role === "admin" || (session?.role === "manager" && session.slug === board.slug)}
+          />
         ))}
       </section>
 

@@ -75,6 +75,10 @@ export async function requireAdmin() {
 
 export async function requireManager(slug: string) {
   const session = await getSession();
+  if (session?.role === "admin") {
+    return;
+  }
+
   if (session?.role !== "manager" || session.slug !== slug) {
     throw new Error("Manager session required.");
   }

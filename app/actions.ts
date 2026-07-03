@@ -6,11 +6,13 @@ import { redirect } from "next/navigation";
 import {
   adjustEntry,
   createLeaderboard,
+  deleteLeaderboard,
   deleteEntry,
   upsertEntry,
   updateLeaderboardSettings,
   updateManagerPassword,
-  verifyManager
+  verifyManager,
+  verifyManagerByUsername
 } from "@/lib/db";
 import { rateLimit } from "@/lib/rate-limit";
 import { clearSession, requireAdmin, requireManager, setSession } from "@/lib/session";
@@ -32,27 +34,37 @@ function failure(path: string, error: unknown): never {
   redirect(`${path}?error=${encodeURIComponent(message)}`);
 }
 
-export async function adminLoginAction(formData: FormData) {
+export async function staffLoginAction(formData: FormData) {
+  let target = "/admin";
   try {
-    await rateLimit("admin-login", 8, 60_000);
+    await rateLimit("staff-login", 10, 60_000);
     const input = loginSchema.parse(toObject(formData));
     const username = process.env.ADMIN_USERNAME;
     const passwordHash = process.env.ADMIN_PASSWORD_HASH;
 
-    if (!username || !passwordHash) {
-      throw new Error("Admin credentials are not configured.");
+    let isAdmin = false;
+    if (username && passwordHash) {
+      const adminOk = input.username === username && (await bcrypt.compare(input.password, passwordHash));
+      if (adminOk) {
+        await setSession("admin");
+        isAdmin = true;
+        target = "/admin";
+      }
     }
 
-    const ok = input.username === username && (await bcrypt.compare(input.password, passwordHash));
-    if (!ok) {
-      throw new Error("Invalid admin credentials.");
+    if (!isAdmin) {
+      const managerBoard = await verifyManagerByUsername(input.username, input.password);
+      if (managerBoard) {
+        await setSession("manager", managerBoard.slug);
+        target = `/manage/${managerBoard.slug}`;
+      } else {
+        throw new Error("Invalid staff credentials.");
+      }
     }
-
-    await setSession("admin");
   } catch (error) {
     failure("/admin", error);
   }
-  redirect("/admin");
+  redirect(target);
 }
 
 export async function logoutAction() {
@@ -142,6 +154,7 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
     await requireManager(slug);
     const input = settingsSchema.parse(toObject(formData));
     await updateLeaderboardSettings(slug, {
+      name: input.name,
       description: input.description,
       measurement: input.measurement,
       maxValue: input.maxValue ?? null
@@ -152,6 +165,20 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
     failure(`/manage/${slug}`, error);
   }
   redirect(`/manage/${slug}?ok=${encodeURIComponent("Settings updated.")}`);
+}
+
+export async function deleteLeaderboardAction(slug: string) {
+  try {
+    await rateLimit(`delete-board-${slug}`, 8, 60_000);
+    await requireAdmin();
+    await deleteLeaderboard(slug);
+    revalidatePath("/home");
+    revalidatePath(`/leaderboards/${slug}`);
+    revalidatePath(`/manage/${slug}`);
+  } catch (error) {
+    failure(`/manage/${slug}`, error);
+  }
+  redirect("/admin?ok=Leaderboard%20deleted.");
 }
 
 export async function changeManagerPasswordAction(slug: string, formData: FormData) {

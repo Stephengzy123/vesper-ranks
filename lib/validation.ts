@@ -26,6 +26,7 @@ export const adjustmentSchema = z.object({
 });
 
 export const settingsSchema = z.object({
+  name: z.string().trim().min(2).max(80),
   description: z.string().trim().max(240).default(""),
   measurement: z.string().trim().min(2).max(40),
   maxValue: z.coerce.number().int().positive().optional().or(z.literal("").transform(() => undefined))
