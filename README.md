@@ -21,6 +21,14 @@ npm run hash-password -- "your-password"
 
 Run the SQL in `db/schema.sql` against Neon before using admin or manager tools.
 
+You can also run the idempotent setup script locally:
+
+```bash
+pnpm run db:setup
+```
+
+Deploys run the same setup automatically before `next build` through the `prebuild` script. The schema uses `if not exists`, so it creates missing tables without deleting leaderboard data.
+
 ## Routes
 
 - `/home` searchable leaderboard homepage

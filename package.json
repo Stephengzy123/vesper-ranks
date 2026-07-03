@@ -2,11 +2,14 @@
   "name": "vesper-ranks",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.9.0",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "tsx scripts/setup-db.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "db:setup": "tsx scripts/setup-db.ts",
     "hash-password": "tsx scripts/hash-password.ts"
   },
   "dependencies": {
