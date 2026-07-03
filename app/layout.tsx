@@ -22,7 +22,13 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           </Link>
           <nav className="nav">
             <Link href="/home">Home</Link>
-            <Link href="/admin">Admin</Link>
+            {session?.role === "admin" ? (
+              <Link className="staff-shortcut" href="/admin/dashboard">Admin controls</Link>
+            ) : null}
+            {session?.role === "manager" && session.slug ? (
+              <Link className="staff-shortcut" href={`/manage/${session.slug}`}>Managed event</Link>
+            ) : null}
+            {session ? null : <Link href="/admin">Admin</Link>}
             {session ? (
               <form action={logoutAction}>
                 <button className="ghost-button" type="submit">Log out</button>

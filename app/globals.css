@@ -95,6 +95,17 @@ button {
   color: var(--ink-soft);
 }
 
+.staff-shortcut {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(26, 43, 77, 0.6);
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .ghost-button {
   min-height: 34px;
   padding: 0 14px;
