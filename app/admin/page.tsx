@@ -1,4 +1,5 @@
 import { staffLoginAction } from "@/app/actions";
+import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 
 type AdminPageProps = {
   searchParams?: Promise<{ error?: string }>;
@@ -35,6 +36,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
             Password
             <input name="password" type="password" autoComplete="current-password" required />
           </label>
+          <PendingSubmitNotice messages={["Signing you in", "Taking longer than usual", "Almost there"]} />
           <button type="submit">Sign in</button>
         </form>
       </section>

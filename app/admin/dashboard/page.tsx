@@ -4,6 +4,7 @@ import { createLeaderboardAction } from "@/app/actions";
 import { listLeaderboards } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
+import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 
 type AdminDashboardPageProps = {
   searchParams?: Promise<{ error?: string; ok?: string }>;
@@ -52,6 +53,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
             <input name="managerPassword" type="password" required minLength={8} />
           </label>
           <p className="quiet-copy">The manager username will match the generated leaderboard slug.</p>
+          <PendingSubmitNotice messages={["Creating your event", "It's taking longer than usual", "Almost there"]} />
           <button type="submit">Create leaderboard</button>
         </form>
       </section>

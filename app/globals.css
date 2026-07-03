@@ -185,6 +185,25 @@ h2 {
   max-width: 880px;
 }
 
+.workspace-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preview-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(26, 43, 77, 0.6);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+}
+
 .search-panel {
   display: flex;
   align-items: center;
@@ -488,6 +507,62 @@ h2 {
   color: var(--ok);
 }
 
+.pending-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(11, 15, 16, 0.46);
+  backdrop-filter: blur(10px);
+}
+
+.pending-toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 58px;
+  max-width: min(92vw, 420px);
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: rgba(29, 32, 34, 0.96);
+  box-shadow: 0 26px 58px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(53, 92, 156, 0.2);
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.pending-spinner {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  border: 3px solid rgba(248, 250, 252, 0.22);
+  border-top-color: var(--ink);
+  animation: spin 800ms linear infinite;
+}
+
+.pending-message {
+  animation: fade-message 520ms ease both;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-message {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .manager-list {
   display: grid;
   gap: 10px;
@@ -583,7 +658,8 @@ h2 {
   .nav,
   .card-stat,
   .entry-heading,
-  .workspace-heading {
+  .workspace-heading,
+  .workspace-actions {
     align-items: flex-start;
     flex-direction: column;
   }

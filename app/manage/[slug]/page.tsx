@@ -12,6 +12,7 @@ import {
 } from "@/app/actions";
 import { getLeaderboard } from "@/lib/db";
 import { getSession } from "@/lib/session";
+import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 
 type ManagePageProps = {
   params: Promise<{ slug: string }>;
@@ -49,6 +50,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
               Password
               <input name="password" type="password" autoComplete="current-password" required />
             </label>
+            <PendingSubmitNotice messages={["Opening workspace", "Taking longer than usual", "Almost there"]} />
             <button type="submit">Manage leaderboard</button>
           </form>
         </section>
@@ -66,19 +68,21 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
   return (
     <main className="page-shell">
       <section className="board-hero">
-        <Link className="back-link" href={`/leaderboards/${slug}`}>View public board</Link>
         <div className="workspace-heading">
           <div>
             <p className="eyebrow">Manager workspace</p>
             <h1>{board.name}</h1>
           </div>
-          <Link
-            className="icon-button"
-            href={showSettings ? `/manage/${slug}` : `/manage/${slug}?settings=1`}
-            aria-label={showSettings ? "Back to entries" : "Open settings"}
-          >
-            <Settings size={20} aria-hidden="true" />
-          </Link>
+          <div className="workspace-actions">
+            <Link className="preview-button" href={`/leaderboards/${slug}`}>Preview leaderboard</Link>
+            <Link
+              className="icon-button"
+              href={showSettings ? `/manage/${slug}` : `/manage/${slug}?settings=1`}
+              aria-label={showSettings ? "Back to entries" : "Open settings"}
+            >
+              <Settings size={20} aria-hidden="true" />
+            </Link>
+          </div>
         </div>
         <p>{session?.role === "admin" ? "Admin access" : "Manager access"} · {board.entries.length}/100 entries</p>
         {error ? <p className="form-message error">{error}</p> : null}
@@ -107,6 +111,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                   Optional max
                   <input name="maxValue" type="number" min={1} defaultValue={board.maxValue ?? ""} />
                 </label>
+                <PendingSubmitNotice messages={["Saving settings", "Taking longer than usual", "Almost there"]} />
                 <button type="submit">Save settings</button>
               </form>
             </div>
@@ -126,6 +131,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                   Confirm password
                   <input name="confirmPassword" type="password" required minLength={8} />
                 </label>
+                <PendingSubmitNotice messages={["Updating password", "Taking longer than usual", "Almost there"]} />
                 <button type="submit">Update password</button>
               </form>
             </div>
@@ -136,6 +142,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
               <h2>Delete leaderboard</h2>
               <p className="quiet-copy">This permanently removes the leaderboard and all of its entries.</p>
               <form action={deleteBoard}>
+                <PendingSubmitNotice messages={["Deleting leaderboard", "Taking longer than usual", "Almost there"]} />
                 <button className="danger-button" type="submit">Delete leaderboard</button>
               </form>
             </section>
@@ -158,6 +165,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                 Note
                 <input name="note" maxLength={120} placeholder="Optional context" />
               </label>
+              <PendingSubmitNotice messages={["Saving entry", "Taking longer than usual", "Almost there"]} />
               <button type="submit">Save</button>
             </form>
           </section>
@@ -181,21 +189,25 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                       Note
                       <input name="note" defaultValue={entry.note} maxLength={120} />
                     </label>
+                    <PendingSubmitNotice messages={["Saving entry", "Taking longer than usual", "Almost there"]} />
                     <button type="submit">Save</button>
                   </form>
                   <div className="row-actions">
                     <form action={adjustEntry}>
                       <input type="hidden" name="id" value={entry.id} />
                       <input type="hidden" name="delta" value={10} />
+                      <PendingSubmitNotice messages={["Updating score", "Taking longer than usual", "Almost there"]} />
                       <button className="ghost-button" type="submit">+10</button>
                     </form>
                     <form action={adjustEntry}>
                       <input type="hidden" name="id" value={entry.id} />
                       <input type="hidden" name="delta" value={-10} />
+                      <PendingSubmitNotice messages={["Updating score", "Taking longer than usual", "Almost there"]} />
                       <button className="ghost-button" type="submit">-10</button>
                     </form>
                     <form action={removeEntry}>
                       <input type="hidden" name="id" value={entry.id} />
+                      <PendingSubmitNotice messages={["Deleting entry", "Taking longer than usual", "Almost there"]} />
                       <button className="ghost-button danger" type="submit">Delete</button>
                     </form>
                   </div>
