@@ -48,7 +48,7 @@ export async function staffLoginAction(formData: FormData) {
       if (adminOk) {
         await setSession("admin");
         isAdmin = true;
-        target = "/admin";
+        target = "/admin/dashboard";
       }
     }
 
@@ -85,7 +85,7 @@ export async function createLeaderboardAction(formData: FormData) {
     revalidatePath("/home");
     target = `/manage/${board.slug}`;
   } catch (error) {
-    failure("/admin", error);
+    failure("/admin/dashboard", error);
   }
   redirect(target);
 }
@@ -178,7 +178,7 @@ export async function deleteLeaderboardAction(slug: string) {
   } catch (error) {
     failure(`/manage/${slug}`, error);
   }
-  redirect("/admin?ok=Leaderboard%20deleted.");
+  redirect("/admin/dashboard?ok=Leaderboard%20deleted.");
 }
 
 export async function changeManagerPasswordAction(slug: string, formData: FormData) {
