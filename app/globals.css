@@ -380,6 +380,49 @@ h2 {
   gap: 18px;
 }
 
+.form-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.info-button {
+  width: 34px;
+  height: 34px;
+}
+
+.tooltip-bubble {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  z-index: 20;
+  width: min(260px, 78vw);
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--surface-highest);
+  color: var(--ink-soft);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.tooltip-wrap:hover .tooltip-bubble,
+.tooltip-wrap:focus-within .tooltip-bubble {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .form-stack label {
   display: grid;
   gap: 8px;

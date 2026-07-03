@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Settings } from "lucide-react";
+import { Info, Settings } from "lucide-react";
 import { createLeaderboardAction, staffLoginAction } from "@/app/actions";
 import { listLeaderboards } from "@/lib/db";
 import { getSession } from "@/lib/session";
@@ -54,6 +54,17 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           </form>
         ) : (
           <form className="form-stack" action={staffLoginAction}>
+            <div className="form-title-row">
+              <span className="quiet-copy">Credentials</span>
+              <span className="tooltip-wrap">
+                <button className="icon-button info-button" type="button" aria-label="Staff sign-in details">
+                  <Info size={16} aria-hidden="true" />
+                </button>
+                <span className="tooltip-bubble" role="tooltip">
+                  Admins use the global staff account. Managers use their leaderboard username and password.
+                </span>
+              </span>
+            </div>
             <label>
               Username
               <input name="username" autoComplete="username" required />
@@ -63,9 +74,6 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               <input name="password" type="password" autoComplete="current-password" required />
             </label>
             <button type="submit">Sign in</button>
-            <p className="quiet-copy">
-              Admins use the global staff account. Managers use their leaderboard username and password.
-            </p>
           </form>
         )}
       </section>
