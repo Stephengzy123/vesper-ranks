@@ -185,6 +185,77 @@ h2 {
   max-width: 880px;
 }
 
+.board-header-image {
+  display: block;
+  width: min(880px, 100%);
+  max-height: 280px;
+  margin-bottom: 28px;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: 0 26px 58px rgba(0, 0, 0, 0.34);
+}
+
+.custom-board {
+  color: var(--board-text);
+}
+
+.custom-board .board-hero h1,
+.custom-board .entry-heading h2,
+.custom-board .entry-heading strong {
+  color: var(--board-text);
+}
+
+.custom-board .rank-number,
+.custom-board .icon-button {
+  background: var(--board-primary);
+  color: var(--board-text);
+}
+
+.custom-board .progress span {
+  background: linear-gradient(90deg, var(--board-primary), var(--board-accent));
+}
+
+.custom-board .entry-row,
+.custom-board .empty-state {
+  box-shadow: 0 26px 58px rgba(0, 0, 0, 0.3), inset 0 0 0 1px color-mix(in srgb, var(--board-accent) 22%, transparent);
+}
+
+.embed-shell {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--board-accent) 24%, transparent), transparent 28rem),
+    linear-gradient(180deg, #101415 0%, #0b0f10 100%);
+}
+
+.embed-hero {
+  padding: 8px 0 20px;
+}
+
+.embed-hero h1 {
+  font-size: clamp(34px, 8vw, 64px);
+}
+
+.embed-hero p {
+  max-width: 640px;
+  color: color-mix(in srgb, var(--board-text) 72%, transparent);
+  line-height: 1.55;
+}
+
+.embed-header-image {
+  width: 100%;
+  max-height: 220px;
+  margin-bottom: 20px;
+  border-radius: 18px;
+}
+
+.embed-view-all {
+  margin-top: 8px;
+  background: var(--board-primary);
+  color: var(--board-text);
+}
+
 .workspace-actions {
   display: flex;
   align-items: center;
@@ -491,6 +562,11 @@ h2 {
   border-radius: 18px;
 }
 
+.form-stack input[type="color"] {
+  min-height: 52px;
+  padding: 8px;
+}
+
 .form-stack textarea {
   min-height: 110px;
   padding-top: 14px;
@@ -518,6 +594,34 @@ h2 {
 .form-message.ok {
   background: rgba(183, 228, 199, 0.12);
   color: var(--ok);
+}
+
+.embed-code-box {
+  display: grid;
+  gap: 12px;
+}
+
+.embed-code-box textarea {
+  min-height: 112px;
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  padding: 14px 16px;
+  outline: 0;
+  resize: vertical;
+  color: var(--ink);
+  background: var(--surface-lowest);
+  line-height: 1.5;
+}
+
+.embed-code-box button {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--ink);
+  font-weight: 800;
 }
 
 .pending-overlay {

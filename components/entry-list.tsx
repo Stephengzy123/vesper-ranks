@@ -30,7 +30,7 @@ export function EntryList({ board }: { board: LeaderboardWithEntries }) {
             <div className="entry-main">
               <div className="entry-heading">
                 <h2>{entry.name}</h2>
-                <strong>{entry.value.toLocaleString()} {board.measurement}</strong>
+                <strong>{entry.value.toLocaleString()}</strong>
               </div>
               <div className="progress">
                 <span style={{ width: `${width}%` }} />

@@ -157,7 +157,11 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
       name: input.name,
       description: input.description,
       measurement: input.measurement,
-      maxValue: input.maxValue ?? null
+      maxValue: input.maxValue ?? null,
+      primaryColor: input.primaryColor,
+      accentColor: input.accentColor,
+      textColor: input.textColor,
+      headerImageUrl: input.headerImageUrl
     });
     revalidatePath(`/leaderboards/${slug}`);
     revalidatePath(`/manage/${slug}`);

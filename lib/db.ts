@@ -15,6 +15,10 @@ function rowToLeaderboard(row: Record<string, unknown>): Leaderboard {
     description: String(row.description ?? ""),
     measurement: String(row.measurement ?? "Score"),
     maxValue: row.max_value === null ? null : Number(row.max_value),
+    primaryColor: String(row.primary_color ?? "#1a2b4d"),
+    accentColor: String(row.accent_color ?? "#355c9c"),
+    textColor: String(row.text_color ?? "#f8fafc"),
+    headerImageUrl: String(row.header_image_url ?? ""),
     managerUsername: String(row.manager_username),
     createdAt: String(row.created_at),
     updatedAt: String(row.updated_at)
@@ -213,7 +217,16 @@ export async function deleteEntry(slug: string, id: string) {
 
 export async function updateLeaderboardSettings(
   slug: string,
-  input: { name: string; measurement: string; maxValue: number | null; description: string }
+  input: {
+    name: string;
+    measurement: string;
+    maxValue: number | null;
+    description: string;
+    primaryColor: string;
+    accentColor: string;
+    textColor: string;
+    headerImageUrl: string;
+  }
 ) {
   const db = requireDb();
   await db`
@@ -222,6 +235,10 @@ export async function updateLeaderboardSettings(
         measurement = ${input.measurement},
         max_value = ${input.maxValue},
         description = ${input.description},
+        primary_color = ${input.primaryColor},
+        accent_color = ${input.accentColor},
+        text_color = ${input.textColor},
+        header_image_url = ${input.headerImageUrl},
         updated_at = now()
     where slug = ${slug}
   `;

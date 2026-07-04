@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, "Use a hex color.");
+const optionalUrl = z
+  .string()
+  .trim()
+  .max(500)
+  .refine((value) => !value || /^https?:\/\//i.test(value), "Use an http or https URL.");
+
 export const loginSchema = z.object({
   username: z.string().trim().min(1).max(80),
   password: z.string().min(1).max(200)
@@ -29,7 +36,11 @@ export const settingsSchema = z.object({
   name: z.string().trim().min(2).max(80),
   description: z.string().trim().max(240).default(""),
   measurement: z.string().trim().min(2).max(40),
-  maxValue: z.coerce.number().int().positive().optional().or(z.literal("").transform(() => undefined))
+  maxValue: z.coerce.number().int().positive().optional().or(z.literal("").transform(() => undefined)),
+  primaryColor: hexColor.default("#1a2b4d"),
+  accentColor: hexColor.default("#355c9c"),
+  textColor: hexColor.default("#f8fafc"),
+  headerImageUrl: optionalUrl.default("")
 });
 
 export const passwordChangeSchema = z

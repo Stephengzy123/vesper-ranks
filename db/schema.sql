@@ -7,6 +7,10 @@ create table if not exists leaderboards (
   description text not null default '',
   measurement text not null default 'Score',
   max_value integer,
+  primary_color text not null default '#1a2b4d',
+  accent_color text not null default '#355c9c',
+  text_color text not null default '#f8fafc',
+  header_image_url text not null default '',
   manager_username text not null unique,
   manager_password_hash text not null,
   created_at timestamptz not null default now(),
@@ -25,3 +29,8 @@ create table if not exists leaderboard_entries (
 
 create index if not exists leaderboard_entries_board_value_idx
   on leaderboard_entries (leaderboard_id, value desc);
+
+alter table leaderboards add column if not exists primary_color text not null default '#1a2b4d';
+alter table leaderboards add column if not exists accent_color text not null default '#355c9c';
+alter table leaderboards add column if not exists text_color text not null default '#f8fafc';
+alter table leaderboards add column if not exists header_image_url text not null default '';

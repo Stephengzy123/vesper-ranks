@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Settings, Trophy } from "lucide-react";
+import { ArrowUpRight, Settings } from "lucide-react";
 import type { LeaderboardWithEntries } from "@/lib/types";
 
 export function LeaderboardCard({ board, canManage = false }: { board: LeaderboardWithEntries; canManage?: boolean }) {
@@ -10,7 +10,7 @@ export function LeaderboardCard({ board, canManage = false }: { board: Leaderboa
   return (
     <article className="leaderboard-card">
       <div className="card-topline">
-        <span className="rank-chip"><Trophy size={14} /> {board.measurement}</span>
+        <span className="rank-chip">{board.entries.length} entries</span>
         <span className="card-actions">
           {canManage ? (
             <Link className="icon-button" href={`/manage/${board.slug}`} aria-label={`Manage ${board.name}`}>

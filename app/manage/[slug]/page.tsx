@@ -12,6 +12,8 @@ import {
 } from "@/app/actions";
 import { getLeaderboard } from "@/lib/db";
 import { getSession } from "@/lib/session";
+import { headers } from "next/headers";
+import { EmbedCodeBox } from "@/components/embed-code-box";
 import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 
 type ManagePageProps = {
@@ -26,6 +28,12 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
 
   const session = await getSession().catch(() => null);
   const paramsValue = await searchParams;
+  const headerStore = await headers();
+  const host = headerStore.get("x-forwarded-host") ?? headerStore.get("host") ?? "";
+  const protocol = headerStore.get("x-forwarded-proto") ?? "https";
+  const origin = host ? `${protocol}://${host}` : "";
+  const embedUrl = `${origin}/embed/${slug}`;
+  const embedCode = `<iframe src="${embedUrl}" style="width:100%;height:620px;border:0;border-radius:16px;" loading="lazy"></iframe>`;
   const error = paramsValue?.error ? decodeURIComponent(paramsValue.error) : "";
   const ok = paramsValue?.ok ? decodeURIComponent(paramsValue.ok) : "";
   const showSettings = paramsValue?.settings === "1";
@@ -112,6 +120,24 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                   Optional max
                   <input name="maxValue" type="number" min={1} defaultValue={board.maxValue ?? ""} />
                 </label>
+                <div className="form-grid">
+                  <label>
+                    Primary color
+                    <input name="primaryColor" type="color" defaultValue={board.primaryColor} />
+                  </label>
+                  <label>
+                    Accent color
+                    <input name="accentColor" type="color" defaultValue={board.accentColor} />
+                  </label>
+                </div>
+                <label>
+                  Text color
+                  <input name="textColor" type="color" defaultValue={board.textColor} />
+                </label>
+                <label>
+                  Header image URL
+                  <input name="headerImageUrl" type="url" defaultValue={board.headerImageUrl} placeholder="https://..." />
+                </label>
                 <PendingSubmitNotice messages={["Saving settings", "Taking longer than usual", "Almost there"]} />
                 <button type="submit">Save settings</button>
               </form>
@@ -136,6 +162,12 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                 <button type="submit">Update password</button>
               </form>
             </div>
+          </section>
+
+          <section className="tool-panel">
+            <h2>Embed</h2>
+            <p className="quiet-copy">Paste this into another site to show the live leaderboard.</p>
+            <EmbedCodeBox code={embedCode} />
           </section>
 
           {session?.role === "admin" ? (

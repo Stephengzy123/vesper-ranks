@@ -5,6 +5,10 @@ export type Leaderboard = {
   description: string;
   measurement: string;
   maxValue: number | null;
+  primaryColor: string;
+  accentColor: string;
+  textColor: string;
+  headerImageUrl: string;
   managerUsername: string;
   createdAt: string;
   updatedAt: string;
