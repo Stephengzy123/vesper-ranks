@@ -168,7 +168,7 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
   } catch (error) {
     failure(`/manage/${slug}`, error);
   }
-  redirect(`/manage/${slug}?ok=${encodeURIComponent("Settings updated.")}`);
+  redirect(`/manage/${slug}?tab=style&ok=${encodeURIComponent("Style updated.")}`);
 }
 
 export async function deleteLeaderboardAction(slug: string) {
@@ -194,5 +194,5 @@ export async function changeManagerPasswordAction(slug: string, formData: FormDa
   } catch (error) {
     failure(`/manage/${slug}`, error);
   }
-  redirect(`/manage/${slug}?ok=${encodeURIComponent("Password updated.")}`);
+  redirect(`/manage/${slug}?tab=account&ok=${encodeURIComponent("Password updated.")}`);
 }

@@ -288,6 +288,11 @@ h2 {
   font-weight: 800;
 }
 
+.settings-button.active {
+  background: var(--navy);
+  color: var(--ink);
+}
+
 .search-panel {
   display: flex;
   align-items: center;

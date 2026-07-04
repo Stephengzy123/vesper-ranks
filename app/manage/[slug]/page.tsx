@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Settings } from "lucide-react";
 import { notFound } from "next/navigation";
 import {
   adjustEntryAction,
@@ -18,7 +17,7 @@ import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 
 type ManagePageProps = {
   params: Promise<{ slug: string }>;
-  searchParams?: Promise<{ error?: string; ok?: string; settings?: string }>;
+  searchParams?: Promise<{ error?: string; ok?: string; tab?: string }>;
 };
 
 export default async function ManagePage({ params, searchParams }: ManagePageProps) {
@@ -36,7 +35,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
   const embedCode = `<iframe src="${embedUrl}" style="width:100%;height:620px;border:0;border-radius:16px;" loading="lazy"></iframe>`;
   const error = paramsValue?.error ? decodeURIComponent(paramsValue.error) : "";
   const ok = paramsValue?.ok ? decodeURIComponent(paramsValue.ok) : "";
-  const showSettings = paramsValue?.settings === "1";
+  const tab = paramsValue?.tab === "account" || paramsValue?.tab === "style" ? paramsValue.tab : "entries";
   const isManager = session?.role === "manager" && session.slug === slug;
   const canManage = session?.role === "admin" || isManager;
 
@@ -83,14 +82,9 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
           </div>
           <div className="workspace-actions">
             <Link className="preview-button" href={`/leaderboards/${slug}`}>Preview leaderboard</Link>
-            <Link
-              className="settings-button"
-              href={showSettings ? `/manage/${slug}` : `/manage/${slug}?settings=1`}
-              aria-label={showSettings ? "Back to entries" : "Open settings"}
-            >
-              <Settings size={20} aria-hidden="true" />
-              <span>{showSettings ? "Entries" : "Account settings"}</span>
-            </Link>
+            <Link className={`settings-button ${tab === "entries" ? "active" : ""}`} href={`/manage/${slug}`}>Entries</Link>
+            <Link className={`settings-button ${tab === "account" ? "active" : ""}`} href={`/manage/${slug}?tab=account`}>Account</Link>
+            <Link className={`settings-button ${tab === "style" ? "active" : ""}`} href={`/manage/${slug}?tab=style`}>Style</Link>
           </div>
         </div>
         <p>{session?.role === "admin" ? "Admin access" : "Manager access"} · {board.entries.length}/100 entries</p>
@@ -98,49 +92,13 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
         {ok ? <p className="form-message ok">{ok}</p> : null}
       </section>
 
-      {showSettings ? (
+      {tab === "account" ? (
         <>
           <section className="manager-grid">
             <div className="tool-panel">
-              <h2>Board settings</h2>
-              <form className="form-stack" action={updateSettings}>
-                <label>
-                  Leaderboard name
-                  <input name="name" required defaultValue={board.name} minLength={2} maxLength={80} />
-                </label>
-                <label>
-                  Description
-                  <textarea name="description" defaultValue={board.description} maxLength={240} />
-                </label>
-                <label>
-                  Measurement
-                  <input name="measurement" required defaultValue={board.measurement} maxLength={40} />
-                </label>
-                <label>
-                  Optional max
-                  <input name="maxValue" type="number" min={1} defaultValue={board.maxValue ?? ""} />
-                </label>
-                <div className="form-grid">
-                  <label>
-                    Primary color
-                    <input name="primaryColor" type="color" defaultValue={board.primaryColor} />
-                  </label>
-                  <label>
-                    Accent color
-                    <input name="accentColor" type="color" defaultValue={board.accentColor} />
-                  </label>
-                </div>
-                <label>
-                  Text color
-                  <input name="textColor" type="color" defaultValue={board.textColor} />
-                </label>
-                <label>
-                  Header image URL
-                  <input name="headerImageUrl" type="url" defaultValue={board.headerImageUrl} placeholder="https://..." />
-                </label>
-                <PendingSubmitNotice messages={["Saving settings", "Taking longer than usual", "Almost there"]} />
-                <button type="submit">Save settings</button>
-              </form>
+              <h2>Embed</h2>
+              <p className="quiet-copy">Paste this into another site to show the live leaderboard.</p>
+              <EmbedCodeBox code={embedCode} />
             </div>
 
             <div className="tool-panel">
@@ -164,12 +122,6 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
             </div>
           </section>
 
-          <section className="tool-panel">
-            <h2>Embed</h2>
-            <p className="quiet-copy">Paste this into another site to show the live leaderboard.</p>
-            <EmbedCodeBox code={embedCode} />
-          </section>
-
           {session?.role === "admin" ? (
             <section className="tool-panel danger-panel">
               <h2>Delete leaderboard</h2>
@@ -181,6 +133,48 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
             </section>
           ) : null}
         </>
+      ) : tab === "style" ? (
+        <section className="tool-panel">
+          <h2>Style</h2>
+          <form className="form-stack" action={updateSettings}>
+            <label>
+              Leaderboard name
+              <input name="name" required defaultValue={board.name} minLength={2} maxLength={80} />
+            </label>
+            <label>
+              Description
+              <textarea name="description" defaultValue={board.description} maxLength={240} />
+            </label>
+            <label>
+              Measurement
+              <input name="measurement" required defaultValue={board.measurement} maxLength={40} />
+            </label>
+            <label>
+              Optional max
+              <input name="maxValue" type="number" min={1} defaultValue={board.maxValue ?? ""} />
+            </label>
+            <div className="form-grid">
+              <label>
+                Primary color
+                <input name="primaryColor" type="color" defaultValue={board.primaryColor} />
+              </label>
+              <label>
+                Accent color
+                <input name="accentColor" type="color" defaultValue={board.accentColor} />
+              </label>
+            </div>
+            <label>
+              Text color
+              <input name="textColor" type="color" defaultValue={board.textColor} />
+            </label>
+            <label>
+              Header image URL
+              <input name="headerImageUrl" type="url" defaultValue={board.headerImageUrl} placeholder="https://..." />
+            </label>
+            <PendingSubmitNotice messages={["Saving style", "Taking longer than usual", "Almost there"]} />
+            <button type="submit">Save style</button>
+          </form>
+        </section>
       ) : (
         <>
           <section className="tool-panel add-entry-panel">
