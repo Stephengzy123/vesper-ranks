@@ -28,7 +28,6 @@ export default async function BoardPage({ params }: BoardPageProps) {
   return (
     <main className={`page-shell custom-board ${board.gradientBackground ? "gradient-board" : ""}`} style={boardStyle}>
       <section className="board-hero">
-        <Link className="back-link" href="/home">Home</Link>
         {board.headerImageUrl ? (
           <img className={`board-header-image image-fit-${board.headerImageFit}`} src={board.headerImageUrl} alt="" />
         ) : null}
