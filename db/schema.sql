@@ -1,3 +1,6 @@
+-- Copyright (C) 2026 Ziyu Gu
+-- Licensed under the GNU GPLv3. See LICENSE and NOTICE.
+
 create extension if not exists pgcrypto;
 
 create table if not exists leaderboards (

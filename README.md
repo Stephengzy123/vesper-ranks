@@ -46,3 +46,9 @@ SKIP_DB_SETUP=1 pnpm run build
 - `/manage/[slug]` per-leaderboard manager login and editor
 
 Public pages show demo data when `DATABASE_URL` is not configured. Mutating admin/manager features require Neon.
+
+## License and Attribution
+
+This project is licensed under the GNU General Public License v3.0. See `LICENSE` for the full license text.
+
+Original author: Ziyu Gu, also known as Stephen Gu / @Stephengzy123. Redistributed or modified versions should preserve the original author attribution notice in a reasonable form, as described in `NOTICE`.

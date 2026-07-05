@@ -1,3 +1,6 @@
+// Copyright (C) 2026 Ziyu Gu
+// Licensed under the GNU GPLv3. See LICENSE and NOTICE.
+
 import Link from "next/link";
 import { ArrowUpRight, Settings } from "lucide-react";
 import type { LeaderboardWithEntries } from "@/lib/types";

@@ -1,3 +1,6 @@
+// Copyright (C) 2026 Ziyu Gu
+// Licensed under the GNU GPLv3. See LICENSE and NOTICE.
+
 import { headers } from "next/headers";
 
 const buckets = new Map<string, { count: number; resetAt: number }>();

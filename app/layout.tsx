@@ -1,3 +1,6 @@
+// Copyright (C) 2026 Ziyu Gu
+// Licensed under the GNU GPLv3. See LICENSE and NOTICE.
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { headers } from "next/headers";

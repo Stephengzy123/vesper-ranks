@@ -1,3 +1,6 @@
+// Copyright (C) 2026 Ziyu Gu
+// Licensed under the GNU GPLv3. See LICENSE and NOTICE.
+
 import { NextResponse, type NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {

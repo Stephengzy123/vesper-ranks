@@ -1,5 +1,8 @@
 "use client";
 
+// Copyright (C) 2026 Ziyu Gu
+// Licensed under the GNU GPLv3. See LICENSE and NOTICE.
+
 import { useEffect } from "react";
 
 export function EmbedResizeReporter({ slug }: { slug: string }) {

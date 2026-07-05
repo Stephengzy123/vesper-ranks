@@ -1,5 +1,8 @@
 "use client";
 
+// Copyright (C) 2026 Ziyu Gu
+// Licensed under the GNU GPLv3. See LICENSE and NOTICE.
+
 import { useState } from "react";
 
 export function EmbedCodeBox({ code }: { code: string }) {
