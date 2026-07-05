@@ -27,7 +27,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
       <section className="board-hero">
         <Link className="back-link" href="/home">Home</Link>
         {board.headerImageUrl ? (
-          <img className="board-header-image" src={board.headerImageUrl} alt="" />
+          <img className={`board-header-image image-fit-${board.headerImageFit}`} src={board.headerImageUrl} alt="" />
         ) : null}
         <div className="workspace-heading">
           <div>

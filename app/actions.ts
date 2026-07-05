@@ -162,6 +162,7 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
       accentColor: input.accentColor,
       textColor: input.textColor,
       headerImageUrl: input.headerImageUrl,
+      headerImageFit: input.headerImageFit,
       compactView: input.compactView,
       gradientBackground: input.gradientBackground
     });

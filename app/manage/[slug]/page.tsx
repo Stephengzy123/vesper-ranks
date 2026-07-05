@@ -185,6 +185,13 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
               Header image URL
               <input name="headerImageUrl" type="url" defaultValue={board.headerImageUrl} placeholder="https://..." />
             </label>
+            <label>
+              Header image fit
+              <select name="headerImageFit" defaultValue={board.headerImageFit}>
+                <option value="cover">Crop to fill</option>
+                <option value="contain">Show full image</option>
+              </select>
+            </label>
             <label className="checkbox-label">
               <input name="compactView" type="checkbox" defaultChecked={board.compactView} />
               Compact in-site leaderboard rows

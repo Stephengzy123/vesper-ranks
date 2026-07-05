@@ -19,6 +19,7 @@ function rowToLeaderboard(row: Record<string, unknown>): Leaderboard {
     accentColor: String(row.accent_color ?? "#355c9c"),
     textColor: String(row.text_color ?? "#f8fafc"),
     headerImageUrl: String(row.header_image_url ?? ""),
+    headerImageFit: row.header_image_fit === "contain" ? "contain" : "cover",
     compactView: Boolean(row.compact_view ?? false),
     gradientBackground: Boolean(row.gradient_background ?? false),
     managerUsername: String(row.manager_username),
@@ -228,6 +229,7 @@ export async function updateLeaderboardSettings(
     accentColor: string;
     textColor: string;
     headerImageUrl: string;
+    headerImageFit: "cover" | "contain";
     compactView: boolean;
     gradientBackground: boolean;
   }
@@ -243,6 +245,7 @@ export async function updateLeaderboardSettings(
         accent_color = ${input.accentColor},
         text_color = ${input.textColor},
         header_image_url = ${input.headerImageUrl},
+        header_image_fit = ${input.headerImageFit},
         compact_view = ${input.compactView},
         gradient_background = ${input.gradientBackground},
         updated_at = now()

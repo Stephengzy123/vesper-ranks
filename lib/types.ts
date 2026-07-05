@@ -9,6 +9,7 @@ export type Leaderboard = {
   accentColor: string;
   textColor: string;
   headerImageUrl: string;
+  headerImageFit: "cover" | "contain";
   compactView: boolean;
   gradientBackground: boolean;
   managerUsername: string;

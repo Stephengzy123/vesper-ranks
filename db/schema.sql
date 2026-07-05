@@ -11,6 +11,7 @@ create table if not exists leaderboards (
   accent_color text not null default '#355c9c',
   text_color text not null default '#f8fafc',
   header_image_url text not null default '',
+  header_image_fit text not null default 'cover' check (header_image_fit in ('cover', 'contain')),
   compact_view boolean not null default false,
   gradient_background boolean not null default false,
   manager_username text not null unique,
@@ -36,5 +37,8 @@ alter table leaderboards add column if not exists primary_color text not null de
 alter table leaderboards add column if not exists accent_color text not null default '#355c9c';
 alter table leaderboards add column if not exists text_color text not null default '#f8fafc';
 alter table leaderboards add column if not exists header_image_url text not null default '';
+alter table leaderboards add column if not exists header_image_fit text not null default 'cover';
+alter table leaderboards drop constraint if exists leaderboards_header_image_fit_check;
+alter table leaderboards add constraint leaderboards_header_image_fit_check check (header_image_fit in ('cover', 'contain'));
 alter table leaderboards add column if not exists compact_view boolean not null default false;
 alter table leaderboards add column if not exists gradient_background boolean not null default false;

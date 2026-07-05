@@ -191,8 +191,16 @@ h2 {
   max-height: 280px;
   margin-bottom: 28px;
   border-radius: 24px;
-  object-fit: cover;
   box-shadow: 0 26px 58px rgba(0, 0, 0, 0.34);
+}
+
+.image-fit-cover {
+  object-fit: cover;
+}
+
+.image-fit-contain {
+  object-fit: contain;
+  background: color-mix(in srgb, var(--board-primary, #101415) 82%, #050708);
 }
 
 .custom-board {
@@ -690,6 +698,7 @@ h2 {
 }
 
 .form-stack input,
+.form-stack select,
 .form-stack textarea {
   min-height: 48px;
   padding: 0 16px;

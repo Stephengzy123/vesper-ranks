@@ -25,7 +25,7 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
       <EmbedResizeReporter slug={slug} />
       <section className="embed-hero">
         {board.headerImageUrl ? (
-          <img className="board-header-image embed-header-image" src={board.headerImageUrl} alt="" />
+          <img className={`board-header-image embed-header-image image-fit-${board.headerImageFit}`} src={board.headerImageUrl} alt="" />
         ) : null}
         <p className="eyebrow">Live leaderboard</p>
         <h1>{board.name}</h1>
