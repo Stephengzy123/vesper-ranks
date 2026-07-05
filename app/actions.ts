@@ -183,6 +183,11 @@ export async function deleteLeaderboardAction(slug: string, formData: FormData) 
     if (confirmation !== slug) {
       throw new Error(`Type ${slug} to confirm deletion.`);
     }
+    const adminPassword = String(formData.get("adminPassword") ?? "");
+    const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+    if (!passwordHash || !(await bcrypt.compare(adminPassword, passwordHash))) {
+      throw new Error("Admin password is required to delete this leaderboard.");
+    }
     await deleteLeaderboard(slug);
     revalidatePath("/home");
     revalidatePath(`/leaderboards/${slug}`);

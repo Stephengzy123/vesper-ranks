@@ -147,6 +147,10 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                   Type {board.slug} to confirm
                   <input name="confirmSlug" required autoComplete="off" />
                 </label>
+                <label>
+                  Admin password
+                  <input name="adminPassword" type="password" required autoComplete="current-password" />
+                </label>
                 <PendingSubmitNotice messages={["Deleting leaderboard", "Taking longer than usual", "Almost there"]} />
                 <button className="danger-button" type="submit">Delete leaderboard</button>
               </form>
