@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   description: "Quiet, focused live leaderboards.",
   icons: {
     icon: [
-      { url: "/favicon.ico" },
+      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon.png", type: "image/png", sizes: "512x512" }
     ],
     shortcut: "/favicon.ico",
