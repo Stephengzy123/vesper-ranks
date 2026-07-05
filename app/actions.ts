@@ -31,7 +31,8 @@ function toObject(formData: FormData) {
 
 function failure(path: string, error: unknown): never {
   const message = error instanceof Error ? error.message : "Something went wrong.";
-  redirect(`${path}?error=${encodeURIComponent(message)}`);
+  const separator = path.includes("?") ? "&" : "?";
+  redirect(`${path}${separator}error=${encodeURIComponent(message)}`);
 }
 
 export async function staffLoginAction(formData: FormData) {
@@ -174,16 +175,20 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
   redirect(`/manage/${slug}?tab=style&ok=${encodeURIComponent("Style updated.")}`);
 }
 
-export async function deleteLeaderboardAction(slug: string) {
+export async function deleteLeaderboardAction(slug: string, formData: FormData) {
   try {
     await rateLimit(`delete-board-${slug}`, 8, 60_000);
     await requireAdmin();
+    const confirmation = String(formData.get("confirmSlug") ?? "").trim();
+    if (confirmation !== slug) {
+      throw new Error(`Type ${slug} to confirm deletion.`);
+    }
     await deleteLeaderboard(slug);
     revalidatePath("/home");
     revalidatePath(`/leaderboards/${slug}`);
     revalidatePath(`/manage/${slug}`);
   } catch (error) {
-    failure(`/manage/${slug}`, error);
+    failure(`/manage/${slug}?tab=account`, error);
   }
   redirect("/admin/dashboard?ok=Leaderboard%20deleted.");
 }

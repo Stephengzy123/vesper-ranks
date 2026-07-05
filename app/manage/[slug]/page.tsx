@@ -139,8 +139,14 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
           {session?.role === "admin" ? (
             <section className="tool-panel danger-panel">
               <h2>Delete leaderboard</h2>
-              <p className="quiet-copy">This permanently removes the leaderboard and all of its entries.</p>
-              <form action={deleteBoard}>
+              <p className="quiet-copy">
+                This permanently removes the leaderboard, its manager login, and all of its entries.
+              </p>
+              <form className="form-stack" action={deleteBoard}>
+                <label>
+                  Type {board.slug} to confirm
+                  <input name="confirmSlug" required autoComplete="off" />
+                </label>
                 <PendingSubmitNotice messages={["Deleting leaderboard", "Taking longer than usual", "Almost there"]} />
                 <button className="danger-button" type="submit">Delete leaderboard</button>
               </form>
