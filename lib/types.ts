@@ -9,6 +9,7 @@ export type Leaderboard = {
   accentColor: string;
   textColor: string;
   headerImageUrl: string;
+  compactView: boolean;
   managerUsername: string;
   createdAt: string;
   updatedAt: string;

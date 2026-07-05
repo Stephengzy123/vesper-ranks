@@ -11,6 +11,7 @@ create table if not exists leaderboards (
   accent_color text not null default '#355c9c',
   text_color text not null default '#f8fafc',
   header_image_url text not null default '',
+  compact_view boolean not null default false,
   manager_username text not null unique,
   manager_password_hash text not null,
   created_at timestamptz not null default now(),
@@ -34,3 +35,4 @@ alter table leaderboards add column if not exists primary_color text not null de
 alter table leaderboards add column if not exists accent_color text not null default '#355c9c';
 alter table leaderboards add column if not exists text_color text not null default '#f8fafc';
 alter table leaderboards add column if not exists header_image_url text not null default '';
+alter table leaderboards add column if not exists compact_view boolean not null default false;

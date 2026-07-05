@@ -40,7 +40,8 @@ export const settingsSchema = z.object({
   primaryColor: hexColor.default("#1a2b4d"),
   accentColor: hexColor.default("#355c9c"),
   textColor: hexColor.default("#f8fafc"),
-  headerImageUrl: optionalUrl.default("")
+  headerImageUrl: optionalUrl.default(""),
+  compactView: z.preprocess((value) => value === "on" || value === "true" || value === "1", z.boolean())
 });
 
 export const passwordChangeSchema = z

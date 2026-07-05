@@ -155,11 +155,11 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
             </label>
             <div className="form-grid">
               <label>
-                Primary color
+                Background color
                 <input name="primaryColor" type="color" defaultValue={board.primaryColor} />
               </label>
               <label>
-                Accent color
+                Background accent
                 <input name="accentColor" type="color" defaultValue={board.accentColor} />
               </label>
             </div>
@@ -170,6 +170,10 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
             <label>
               Header image URL
               <input name="headerImageUrl" type="url" defaultValue={board.headerImageUrl} placeholder="https://..." />
+            </label>
+            <label className="checkbox-label">
+              <input name="compactView" type="checkbox" defaultChecked={board.compactView} />
+              Compact leaderboard rows
             </label>
             <PendingSubmitNotice messages={["Saving style", "Taking longer than usual", "Almost there"]} />
             <button type="submit">Save style</button>

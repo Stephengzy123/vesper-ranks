@@ -161,7 +161,8 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
       primaryColor: input.primaryColor,
       accentColor: input.accentColor,
       textColor: input.textColor,
-      headerImageUrl: input.headerImageUrl
+      headerImageUrl: input.headerImageUrl,
+      compactView: input.compactView
     });
     revalidatePath(`/leaderboards/${slug}`);
     revalidatePath(`/manage/${slug}`);

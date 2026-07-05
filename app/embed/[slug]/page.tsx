@@ -32,7 +32,7 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
           View all
         </Link>
       </section>
-      <EntryList board={board} />
+      <EntryList board={board} compact />
     </main>
   );
 }

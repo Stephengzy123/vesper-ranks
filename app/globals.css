@@ -207,38 +207,41 @@ h2 {
 
 .custom-board .rank-number,
 .custom-board .icon-button {
-  background: var(--board-primary);
+  background: color-mix(in srgb, var(--board-accent) 42%, #101415);
   color: var(--board-text);
 }
 
 .custom-board .progress span {
-  background: linear-gradient(90deg, var(--board-primary), var(--board-accent));
+  background: color-mix(in srgb, var(--board-text) 76%, var(--board-accent));
 }
 
 .custom-board .entry-row,
 .custom-board .empty-state {
+  background: color-mix(in srgb, var(--board-primary) 72%, #101415);
   box-shadow: 0 26px 58px rgba(0, 0, 0, 0.3), inset 0 0 0 1px color-mix(in srgb, var(--board-accent) 22%, transparent);
 }
 
 .embed-shell {
   width: min(920px, 100%);
   margin: 0 auto;
-  padding: 24px;
+  padding: 16px;
   background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--board-accent) 24%, transparent), transparent 28rem),
-    linear-gradient(180deg, #101415 0%, #0b0f10 100%);
+    radial-gradient(circle at top left, color-mix(in srgb, var(--board-accent) 30%, transparent), transparent 28rem),
+    linear-gradient(180deg, var(--board-primary) 0%, color-mix(in srgb, var(--board-primary) 74%, #050708) 100%);
 }
 
 .embed-hero {
-  padding: 8px 0 20px;
+  padding: 4px 0 14px;
 }
 
 .embed-hero h1 {
-  font-size: clamp(34px, 8vw, 64px);
+  margin-bottom: 10px;
+  font-size: clamp(28px, 6vw, 44px);
 }
 
 .embed-hero p {
   max-width: 640px;
+  margin-bottom: 12px;
   color: color-mix(in srgb, var(--board-text) 72%, transparent);
   line-height: 1.55;
 }
@@ -252,7 +255,7 @@ h2 {
 
 .embed-view-all {
   margin-top: 8px;
-  background: var(--board-primary);
+  background: color-mix(in srgb, var(--board-accent) 50%, #101415);
   color: var(--board-text);
 }
 
@@ -464,6 +467,44 @@ h2 {
   padding: 20px;
 }
 
+.compact-entries {
+  gap: 8px;
+}
+
+.compact-entries .entry-row {
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.compact-entries .rank-number {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+.compact-entries .rank-number svg {
+  display: none;
+}
+
+.compact-entries .entry-heading h2 {
+  margin-bottom: 0;
+  font-size: 18px;
+}
+
+.compact-entries .entry-heading strong {
+  font-size: 16px;
+}
+
+.compact-entries .entry-main p {
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.compact-entries .progress {
+  height: 8px;
+}
+
 .rank-1,
 .rank-2,
 .rank-3 {
@@ -570,6 +611,17 @@ h2 {
 .form-stack input[type="color"] {
   min-height: 52px;
   padding: 8px;
+}
+
+.checkbox-label {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  justify-content: start;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  min-height: 20px;
 }
 
 .form-stack textarea {
