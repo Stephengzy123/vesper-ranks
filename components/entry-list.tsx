@@ -18,7 +18,7 @@ export function EntryList({ board, compact = false }: { board: LeaderboardWithEn
   const highest = Math.max(...board.entries.map((entry) => entry.value), board.maxValue ?? 0, 1);
 
   return (
-    <section className={`entry-stack ${compact || board.compactView ? "compact-entries" : ""}`} aria-label={`${board.name} rankings`}>
+    <section className={`entry-stack ${compact ? "compact-entries" : ""}`} aria-label={`${board.name} rankings`}>
       {board.entries.map((entry, index) => {
         const width = Math.max(4, Math.round((entry.value / highest) * 100));
         return (

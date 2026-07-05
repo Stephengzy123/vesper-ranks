@@ -197,6 +197,10 @@ h2 {
 
 .custom-board {
   color: var(--board-text);
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--board-accent) 18%, transparent), transparent 34rem),
+    linear-gradient(180deg, var(--board-primary) 0%, color-mix(in srgb, var(--board-primary) 76%, #050708) 100%);
+  border-radius: 24px;
 }
 
 .custom-board .board-hero h1,
@@ -207,27 +211,24 @@ h2 {
 
 .custom-board .rank-number,
 .custom-board .icon-button {
-  background: color-mix(in srgb, var(--board-accent) 42%, #101415);
+  background: color-mix(in srgb, var(--board-accent) 70%, #101415);
   color: var(--board-text);
 }
 
 .custom-board .progress span {
-  background: color-mix(in srgb, var(--board-text) 76%, var(--board-accent));
+  background: color-mix(in srgb, var(--board-text) 78%, var(--board-accent));
 }
 
 .custom-board .entry-row,
 .custom-board .empty-state {
-  background: color-mix(in srgb, var(--board-primary) 72%, #101415);
-  box-shadow: 0 26px 58px rgba(0, 0, 0, 0.3), inset 0 0 0 1px color-mix(in srgb, var(--board-accent) 22%, transparent);
+  background: color-mix(in srgb, var(--board-accent) 78%, #101415);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24), inset 0 0 0 1px color-mix(in srgb, var(--board-text) 14%, transparent);
 }
 
 .embed-shell {
   width: min(920px, 100%);
   margin: 0 auto;
   padding: 16px;
-  background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--board-accent) 30%, transparent), transparent 28rem),
-    linear-gradient(180deg, var(--board-primary) 0%, color-mix(in srgb, var(--board-primary) 74%, #050708) 100%);
 }
 
 .embed-hero {
@@ -472,37 +473,83 @@ h2 {
 }
 
 .compact-entries .entry-row {
-  grid-template-columns: 44px 1fr;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 18px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 62px;
+  padding: 10px 12px;
+  border-radius: 16px;
 }
 
 .compact-entries .rank-number {
-  min-height: 44px;
-  font-size: 16px;
+  width: 38px;
+  height: 38px;
+  min-height: 38px;
+  border-radius: 12px;
+  font-size: 15px;
 }
 
 .compact-entries .rank-number svg {
   display: none;
 }
 
+.compact-entries .entry-main {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+}
+
+.compact-entries .entry-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+}
+
 .compact-entries .entry-heading h2 {
   margin-bottom: 0;
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .compact-entries .entry-heading strong {
   font-size: 16px;
+  line-height: 1;
 }
 
 .compact-entries .entry-main p {
-  margin-bottom: 8px;
+  margin-bottom: 0;
   font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .compact-entries .progress {
-  height: 8px;
+  height: 6px;
+  background: rgba(5, 7, 8, 0.72);
+}
+
+.embed-shell .compact-entries .entry-row {
+  min-height: 56px;
+  padding: 9px 10px;
+}
+
+.embed-shell .compact-entries .rank-number {
+  width: 34px;
+  height: 34px;
+  min-height: 34px;
+  font-size: 14px;
+}
+
+.embed-shell .compact-entries .entry-heading h2 {
+  font-size: 16px;
+}
+
+.embed-shell .compact-entries .entry-heading strong {
+  font-size: 15px;
 }
 
 .rank-1,

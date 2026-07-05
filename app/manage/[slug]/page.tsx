@@ -171,10 +171,6 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
               Header image URL
               <input name="headerImageUrl" type="url" defaultValue={board.headerImageUrl} placeholder="https://..." />
             </label>
-            <label className="checkbox-label">
-              <input name="compactView" type="checkbox" defaultChecked={board.compactView} />
-              Compact leaderboard rows
-            </label>
             <PendingSubmitNotice messages={["Saving style", "Taking longer than usual", "Almost there"]} />
             <button type="submit">Save style</button>
           </form>
