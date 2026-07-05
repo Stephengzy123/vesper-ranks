@@ -22,6 +22,7 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
     "--board-accent": board.accentColor,
     "--board-text": board.textColor
   } as CSSProperties;
+  const embedBoard = { ...board, entries: board.entries.slice(0, 10) };
 
   return (
     <main className={`embed-shell custom-board ${board.gradientBackground ? "gradient-board" : ""}`} style={boardStyle}>
@@ -37,7 +38,7 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
           View all
         </Link>
       </section>
-      <EntryList board={board} compact />
+      <EntryList board={embedBoard} compact />
     </main>
   );
 }
