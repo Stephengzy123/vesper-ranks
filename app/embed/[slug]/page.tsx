@@ -20,7 +20,7 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
   } as CSSProperties;
 
   return (
-    <main className="embed-shell custom-board" style={boardStyle}>
+    <main className={`embed-shell custom-board ${board.gradientBackground ? "gradient-board" : ""}`} style={boardStyle}>
       <section className="embed-hero">
         {board.headerImageUrl ? (
           <img className="board-header-image embed-header-image" src={board.headerImageUrl} alt="" />

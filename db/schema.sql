@@ -12,6 +12,7 @@ create table if not exists leaderboards (
   text_color text not null default '#f8fafc',
   header_image_url text not null default '',
   compact_view boolean not null default false,
+  gradient_background boolean not null default false,
   manager_username text not null unique,
   manager_password_hash text not null,
   created_at timestamptz not null default now(),
@@ -36,3 +37,4 @@ alter table leaderboards add column if not exists accent_color text not null def
 alter table leaderboards add column if not exists text_color text not null default '#f8fafc';
 alter table leaderboards add column if not exists header_image_url text not null default '';
 alter table leaderboards add column if not exists compact_view boolean not null default false;
+alter table leaderboards add column if not exists gradient_background boolean not null default false;

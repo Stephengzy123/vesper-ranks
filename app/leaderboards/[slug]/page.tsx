@@ -23,7 +23,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
   } as CSSProperties;
 
   return (
-    <main className="page-shell custom-board" style={boardStyle}>
+    <main className={`page-shell custom-board ${board.gradientBackground ? "gradient-board" : ""}`} style={boardStyle}>
       <section className="board-hero">
         <Link className="back-link" href="/home">Home</Link>
         {board.headerImageUrl ? (
@@ -42,7 +42,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
         </div>
         <p>{board.description || "A live leaderboard managed on VesperRanks."}</p>
       </section>
-      <EntryList board={board} />
+      <EntryList board={board} compact={board.compactView} />
     </main>
   );
 }

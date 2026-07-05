@@ -159,7 +159,7 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
                 <input name="primaryColor" type="color" defaultValue={board.primaryColor} />
               </label>
               <label>
-                Background accent
+                Row accent color
                 <input name="accentColor" type="color" defaultValue={board.accentColor} />
               </label>
             </div>
@@ -170,6 +170,14 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
             <label>
               Header image URL
               <input name="headerImageUrl" type="url" defaultValue={board.headerImageUrl} placeholder="https://..." />
+            </label>
+            <label className="checkbox-label">
+              <input name="compactView" type="checkbox" defaultChecked={board.compactView} />
+              Compact in-site leaderboard rows
+            </label>
+            <label className="checkbox-label">
+              <input name="gradientBackground" type="checkbox" defaultChecked={board.gradientBackground} />
+              Use gradient background
             </label>
             <PendingSubmitNotice messages={["Saving style", "Taking longer than usual", "Almost there"]} />
             <button type="submit">Save style</button>

@@ -20,6 +20,7 @@ function rowToLeaderboard(row: Record<string, unknown>): Leaderboard {
     textColor: String(row.text_color ?? "#f8fafc"),
     headerImageUrl: String(row.header_image_url ?? ""),
     compactView: Boolean(row.compact_view ?? false),
+    gradientBackground: Boolean(row.gradient_background ?? false),
     managerUsername: String(row.manager_username),
     createdAt: String(row.created_at),
     updatedAt: String(row.updated_at)
@@ -228,6 +229,7 @@ export async function updateLeaderboardSettings(
     textColor: string;
     headerImageUrl: string;
     compactView: boolean;
+    gradientBackground: boolean;
   }
 ) {
   const db = requireDb();
@@ -242,6 +244,7 @@ export async function updateLeaderboardSettings(
         text_color = ${input.textColor},
         header_image_url = ${input.headerImageUrl},
         compact_view = ${input.compactView},
+        gradient_background = ${input.gradientBackground},
         updated_at = now()
     where slug = ${slug}
   `;

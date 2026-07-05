@@ -41,7 +41,8 @@ export const settingsSchema = z.object({
   accentColor: hexColor.default("#355c9c"),
   textColor: hexColor.default("#f8fafc"),
   headerImageUrl: optionalUrl.default(""),
-  compactView: z.preprocess((value) => value === "on" || value === "true" || value === "1", z.boolean())
+  compactView: z.preprocess((value) => value === "on" || value === "true" || value === "1", z.boolean()),
+  gradientBackground: z.preprocess((value) => value === "on" || value === "true" || value === "1", z.boolean())
 });
 
 export const passwordChangeSchema = z

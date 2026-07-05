@@ -10,6 +10,7 @@ export type Leaderboard = {
   textColor: string;
   headerImageUrl: string;
   compactView: boolean;
+  gradientBackground: boolean;
   managerUsername: string;
   createdAt: string;
   updatedAt: string;
