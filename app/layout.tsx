@@ -10,7 +10,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "VesperRanks",
-  description: "Quiet, focused live leaderboards."
+  description: "Quiet, focused live leaderboards.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png"
+  }
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -24,7 +28,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         {isEmbed ? null : (
           <header className="topbar">
             <Link className="brand" href="/home" aria-label="VesperRanks home">
-              <span className="brand-mark">V</span>
+              <img className="brand-logo" src="/vesper-logo-dark.png" alt="" />
               <span>VesperRanks</span>
             </Link>
             <nav className="nav">
