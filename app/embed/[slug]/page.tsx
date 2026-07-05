@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import { EntryList } from "@/components/entry-list";
+import { EmbedResizeReporter } from "@/components/embed-resize-reporter";
 import { getLeaderboard } from "@/lib/db";
 
 type EmbedPageProps = {
@@ -21,6 +22,7 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
 
   return (
     <main className={`embed-shell custom-board ${board.gradientBackground ? "gradient-board" : ""}`} style={boardStyle}>
+      <EmbedResizeReporter slug={slug} />
       <section className="embed-hero">
         {board.headerImageUrl ? (
           <img className="board-header-image embed-header-image" src={board.headerImageUrl} alt="" />

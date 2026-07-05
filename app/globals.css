@@ -247,10 +247,11 @@ h2 {
 }
 
 .embed-shell {
-  width: min(920px, 100%);
+  width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 0;
   padding: 16px;
+  border-radius: 0;
 }
 
 .embed-hero {

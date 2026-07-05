@@ -32,7 +32,21 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
   const protocol = headerStore.get("x-forwarded-proto") ?? "https";
   const origin = host ? `${protocol}://${host}` : "";
   const embedUrl = `${origin}/embed/${slug}`;
-  const embedCode = `<iframe src="${embedUrl}" style="width:100%;height:620px;border:0;border-radius:16px;" loading="lazy"></iframe>`;
+  const embedCode = `<iframe data-vesper-ranks-embed="${slug}" src="${embedUrl}" style="width:100%;height:620px;border:0;border-radius:16px;display:block;" loading="lazy"></iframe>
+<script>
+(() => {
+  const origin = ${JSON.stringify(origin)};
+  const slug = ${JSON.stringify(slug)};
+
+  window.addEventListener("message", (event) => {
+    const data = event.data || {};
+    if (event.origin !== origin || data.type !== "vesper-ranks:resize" || data.slug !== slug || !Number.isFinite(data.height)) return;
+
+    const frame = document.querySelector(\`iframe[data-vesper-ranks-embed="\${slug}"]\`);
+    if (frame) frame.style.height = \`\${Math.ceil(data.height)}px\`;
+  });
+})();
+</script>`;
   const error = paramsValue?.error ? decodeURIComponent(paramsValue.error) : "";
   const ok = paramsValue?.ok ? decodeURIComponent(paramsValue.ok) : "";
   const tab = paramsValue?.tab === "account" || paramsValue?.tab === "style" ? paramsValue.tab : "entries";
