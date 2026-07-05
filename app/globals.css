@@ -200,7 +200,19 @@ h2 {
 
 .image-fit-contain {
   object-fit: contain;
-  background: color-mix(in srgb, var(--board-primary, #101415) 82%, #050708);
+}
+
+.board-header-image.image-fit-contain {
+  width: auto;
+  max-width: min(880px, 100%);
+  height: auto;
+  margin-inline: auto;
+  background: transparent;
+  box-shadow: none;
+}
+
+.embed-header-image.image-fit-contain {
+  max-height: 220px;
 }
 
 .custom-board {
