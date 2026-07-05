@@ -12,7 +12,11 @@ export const metadata: Metadata = {
   title: "VesperRanks",
   description: "Quiet, focused live leaderboards.",
   icons: {
-    icon: "/icon.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" }
+    ],
+    shortcut: "/favicon.ico",
     apple: "/apple-icon.png"
   }
 };
