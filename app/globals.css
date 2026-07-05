@@ -248,6 +248,7 @@ h2 {
 
 .embed-shell {
   width: min(920px, 100%);
+  min-height: 100vh;
   margin: 0 auto;
   padding: 16px;
 }
@@ -588,6 +589,24 @@ h2 {
   color: var(--ink);
   font-size: 24px;
   font-weight: 800;
+}
+
+.rank-1 .rank-number,
+.custom-board .rank-1 .rank-number {
+  background: linear-gradient(135deg, #f8d66d, #b98218);
+  color: #271706;
+}
+
+.rank-2 .rank-number,
+.custom-board .rank-2 .rank-number {
+  background: linear-gradient(135deg, #f3f4f6, #9aa3ad);
+  color: #17202a;
+}
+
+.rank-3 .rank-number,
+.custom-board .rank-3 .rank-number {
+  background: linear-gradient(135deg, #e5a46a, #8e4f25);
+  color: #231006;
 }
 
 .entry-main {
