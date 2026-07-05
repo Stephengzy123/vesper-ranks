@@ -20,11 +20,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   return (
     <main className="page-shell">
       <section className="hero">
-        <p className="eyebrow">Live competitive indexes</p>
         <h1>VesperRanks</h1>
-        <p className="hero-copy">
-          Search focused leaderboards for teams, clubs, cohorts, and quiet rivalries worth tracking.
-        </p>
         <form className="search-panel" action="/home">
           <Search size={20} aria-hidden="true" />
           <input
