@@ -231,6 +231,7 @@ h2 {
   color: var(--board-text);
   background: var(--board-primary);
   border-radius: 24px;
+  font-family: var(--board-description-font);
 }
 
 .custom-board.gradient-board {
@@ -260,6 +261,20 @@ h2 {
 .custom-board .entry-heading h2,
 .custom-board .entry-heading strong {
   color: var(--board-text);
+}
+
+.custom-board .board-hero h1 {
+  font-family: var(--board-title-font);
+}
+
+.custom-board .board-hero > p,
+.custom-board .embed-hero > p {
+  font-family: var(--board-description-font);
+}
+
+.custom-board .entry-row,
+.custom-board .rank-number {
+  font-family: var(--board-entry-font);
 }
 
 .custom-board .rank-number,
@@ -989,5 +1004,27 @@ h2 {
 
   .rank-number {
     width: 76px;
+  }
+
+  .entry-stack:not(.compact-entries) .entry-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .entry-stack:not(.compact-entries) .rank-number {
+    width: 76px;
+    min-height: 76px;
+  }
+
+  .entry-stack:not(.compact-entries) .entry-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+  }
+
+  .entry-stack:not(.compact-entries) .entry-heading h2 {
+    overflow-wrap: anywhere;
   }
 }

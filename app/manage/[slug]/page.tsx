@@ -17,6 +17,7 @@ import { getSession } from "@/lib/session";
 import { headers } from "next/headers";
 import { EmbedCodeBox } from "@/components/embed-code-box";
 import { PendingSubmitNotice } from "@/components/pending-submit-notice";
+import { boardFontOptions } from "@/lib/board-fonts";
 
 type ManagePageProps = {
   params: Promise<{ slug: string }>;
@@ -212,6 +213,32 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
             <label className="checkbox-label">
               <input name="gradientBackground" type="checkbox" defaultChecked={board.gradientBackground} />
               Use gradient background
+            </label>
+            <div className="form-grid">
+              <label>
+                Title font
+                <select name="titleFont" defaultValue={board.titleFont}>
+                  {boardFontOptions.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Description font
+                <select name="descriptionFont" defaultValue={board.descriptionFont}>
+                  {boardFontOptions.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <label>
+              Entry row font
+              <select name="entryFont" defaultValue={board.entryFont}>
+                {boardFontOptions.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
             </label>
             <PendingSubmitNotice messages={["Saving style", "Taking longer than usual", "Almost there"]} />
             <button type="submit">Save style</button>

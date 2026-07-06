@@ -4,11 +4,11 @@
 import { staffLoginAction } from "@/app/actions";
 import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 
-type AdminPageProps = {
+type OrganizerAdminLoginPageProps = {
   searchParams?: Promise<{ error?: string }>;
 };
 
-export default async function AdminPage({ searchParams }: AdminPageProps) {
+export default async function OrganizerAdminLoginPage({ searchParams }: OrganizerAdminLoginPageProps) {
   const params = await searchParams;
   const error = params?.error ? decodeURIComponent(params.error) : "";
 

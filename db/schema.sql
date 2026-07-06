@@ -17,6 +17,9 @@ create table if not exists leaderboards (
   header_image_fit text not null default 'cover' check (header_image_fit in ('cover', 'contain')),
   compact_view boolean not null default false,
   gradient_background boolean not null default false,
+  title_font text not null default 'system',
+  description_font text not null default 'system',
+  entry_font text not null default 'system',
   manager_username text not null unique,
   manager_password_hash text not null,
   created_at timestamptz not null default now(),
@@ -45,3 +48,6 @@ alter table leaderboards drop constraint if exists leaderboards_header_image_fit
 alter table leaderboards add constraint leaderboards_header_image_fit_check check (header_image_fit in ('cover', 'contain'));
 alter table leaderboards add column if not exists compact_view boolean not null default false;
 alter table leaderboards add column if not exists gradient_background boolean not null default false;
+alter table leaderboards add column if not exists title_font text not null default 'system';
+alter table leaderboards add column if not exists description_font text not null default 'system';
+alter table leaderboards add column if not exists entry_font text not null default 'system';

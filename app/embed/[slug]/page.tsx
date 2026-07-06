@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import { EntryList } from "@/components/entry-list";
 import { EmbedResizeReporter } from "@/components/embed-resize-reporter";
+import { boardFontCss } from "@/lib/board-fonts";
 import { getLeaderboard } from "@/lib/db";
 
 type EmbedPageProps = {
@@ -20,7 +21,10 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
   const boardStyle = {
     "--board-primary": board.primaryColor,
     "--board-accent": board.accentColor,
-    "--board-text": board.textColor
+    "--board-text": board.textColor,
+    "--board-title-font": boardFontCss(board.titleFont),
+    "--board-description-font": boardFontCss(board.descriptionFont),
+    "--board-entry-font": boardFontCss(board.entryFont)
   } as CSSProperties;
   const embedBoard = { ...board, entries: board.entries.slice(0, 10) };
 
@@ -31,7 +35,6 @@ export default async function EmbedPage({ params }: EmbedPageProps) {
         {board.headerImageUrl ? (
           <img className={`board-header-image embed-header-image image-fit-${board.headerImageFit}`} src={board.headerImageUrl} alt="" />
         ) : null}
-        <p className="eyebrow">Live leaderboard</p>
         <h1>{board.name}</h1>
         {board.description ? <p>{board.description}</p> : null}
         <Link className="preview-button embed-view-all" href={`/leaderboards/${slug}`} target="_blank" rel="noreferrer">

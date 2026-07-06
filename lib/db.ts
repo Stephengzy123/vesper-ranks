@@ -25,6 +25,9 @@ function rowToLeaderboard(row: Record<string, unknown>): Leaderboard {
     headerImageFit: row.header_image_fit === "contain" ? "contain" : "cover",
     compactView: Boolean(row.compact_view ?? false),
     gradientBackground: Boolean(row.gradient_background ?? false),
+    titleFont: String(row.title_font ?? "system"),
+    descriptionFont: String(row.description_font ?? "system"),
+    entryFont: String(row.entry_font ?? "system"),
     managerUsername: String(row.manager_username),
     createdAt: String(row.created_at),
     updatedAt: String(row.updated_at)
@@ -235,6 +238,9 @@ export async function updateLeaderboardSettings(
     headerImageFit: "cover" | "contain";
     compactView: boolean;
     gradientBackground: boolean;
+    titleFont: string;
+    descriptionFont: string;
+    entryFont: string;
   }
 ) {
   const db = requireDb();
@@ -251,6 +257,9 @@ export async function updateLeaderboardSettings(
         header_image_fit = ${input.headerImageFit},
         compact_view = ${input.compactView},
         gradient_background = ${input.gradientBackground},
+        title_font = ${input.titleFont},
+        description_font = ${input.descriptionFont},
+        entry_font = ${input.entryFont},
         updated_at = now()
     where slug = ${slug}
   `;

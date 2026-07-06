@@ -4,6 +4,7 @@
 import { z } from "zod";
 
 const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, "Use a hex color.");
+const boardFont = z.enum(["system", "serif", "rounded", "mono", "display"]);
 const optionalUrl = z
   .string()
   .trim()
@@ -46,7 +47,10 @@ export const settingsSchema = z.object({
   headerImageUrl: optionalUrl.default(""),
   headerImageFit: z.enum(["cover", "contain"]).default("cover"),
   compactView: z.preprocess((value) => value === "on" || value === "true" || value === "1", z.boolean()),
-  gradientBackground: z.preprocess((value) => value === "on" || value === "true" || value === "1", z.boolean())
+  gradientBackground: z.preprocess((value) => value === "on" || value === "true" || value === "1", z.boolean()),
+  titleFont: boardFont.default("system"),
+  descriptionFont: boardFont.default("system"),
+  entryFont: boardFont.default("system")
 });
 
 export const passwordChangeSchema = z

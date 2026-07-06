@@ -39,7 +39,7 @@ function failure(path: string, error: unknown): never {
 }
 
 export async function staffLoginAction(formData: FormData) {
-  let target = "/admin";
+  let target = "/organizer-admin-login";
   try {
     await rateLimit("staff-login", 10, 60_000);
     const input = loginSchema.parse(toObject(formData));
@@ -52,7 +52,7 @@ export async function staffLoginAction(formData: FormData) {
       if (adminOk) {
         await setSession("admin");
         isAdmin = true;
-        target = "/admin/dashboard";
+        target = "/organizer-admin";
       }
     }
 
@@ -66,7 +66,7 @@ export async function staffLoginAction(formData: FormData) {
       }
     }
   } catch (error) {
-    failure("/admin", error);
+    failure("/organizer-admin-login", error);
   }
   redirect(target);
 }
@@ -77,7 +77,7 @@ export async function logoutAction() {
 }
 
 export async function createLeaderboardAction(formData: FormData) {
-  let target = "/admin";
+  let target = "/organizer-admin";
   try {
     await rateLimit("create-leaderboard", 12, 60_000);
     await requireAdmin();
@@ -89,7 +89,7 @@ export async function createLeaderboardAction(formData: FormData) {
     revalidatePath("/home");
     target = `/manage/${board.slug}`;
   } catch (error) {
-    failure("/admin/dashboard", error);
+    failure("/organizer-admin", error);
   }
   redirect(target);
 }
@@ -168,7 +168,10 @@ export async function updateSettingsAction(slug: string, formData: FormData) {
       headerImageUrl: input.headerImageUrl,
       headerImageFit: input.headerImageFit,
       compactView: input.compactView,
-      gradientBackground: input.gradientBackground
+      gradientBackground: input.gradientBackground,
+      titleFont: input.titleFont,
+      descriptionFont: input.descriptionFont,
+      entryFont: input.entryFont
     });
     revalidatePath(`/leaderboards/${slug}`);
     revalidatePath(`/manage/${slug}`);
@@ -198,7 +201,7 @@ export async function deleteLeaderboardAction(slug: string, formData: FormData) 
   } catch (error) {
     failure(`/manage/${slug}?tab=account`, error);
   }
-  redirect("/admin/dashboard?ok=Leaderboard%20deleted.");
+  redirect("/organizer-admin?ok=Leaderboard%20deleted.");
 }
 
 export async function changeManagerPasswordAction(slug: string, formData: FormData) {

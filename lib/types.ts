@@ -15,6 +15,9 @@ export type Leaderboard = {
   headerImageFit: "cover" | "contain";
   compactView: boolean;
   gradientBackground: boolean;
+  titleFont: string;
+  descriptionFont: string;
+  entryFont: string;
   managerUsername: string;
   createdAt: string;
   updatedAt: string;

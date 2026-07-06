@@ -8,6 +8,7 @@ import type { CSSProperties } from "react";
 import { getLeaderboard } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import { EntryList } from "@/components/entry-list";
+import { boardFontCss } from "@/lib/board-fonts";
 
 type BoardPageProps = {
   params: Promise<{ slug: string }>;
@@ -22,7 +23,10 @@ export default async function BoardPage({ params }: BoardPageProps) {
   const boardStyle = {
     "--board-primary": board.primaryColor,
     "--board-accent": board.accentColor,
-    "--board-text": board.textColor
+    "--board-text": board.textColor,
+    "--board-title-font": boardFontCss(board.titleFont),
+    "--board-description-font": boardFontCss(board.descriptionFont),
+    "--board-entry-font": boardFontCss(board.entryFont)
   } as CSSProperties;
 
   return (
@@ -33,7 +37,6 @@ export default async function BoardPage({ params }: BoardPageProps) {
         ) : null}
         <div className="workspace-heading">
           <div>
-            <p className="eyebrow">Live leaderboard</p>
             <h1>{board.name}</h1>
           </div>
           {canManage ? (

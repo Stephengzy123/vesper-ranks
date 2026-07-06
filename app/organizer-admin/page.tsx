@@ -3,20 +3,20 @@
 
 import Link from "next/link";
 import { Settings } from "lucide-react";
+import { redirect } from "next/navigation";
 import { createLeaderboardAction } from "@/app/actions";
+import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 import { listLeaderboards } from "@/lib/db";
 import { getSession } from "@/lib/session";
-import { redirect } from "next/navigation";
-import { PendingSubmitNotice } from "@/components/pending-submit-notice";
 
-type AdminDashboardPageProps = {
+type OrganizerAdminPageProps = {
   searchParams?: Promise<{ error?: string; ok?: string }>;
 };
 
-export default async function AdminDashboardPage({ searchParams }: AdminDashboardPageProps) {
+export default async function OrganizerAdminPage({ searchParams }: OrganizerAdminPageProps) {
   const session = await getSession().catch(() => null);
   if (session?.role !== "admin") {
-    redirect("/admin");
+    redirect("/organizer-admin-login");
   }
 
   const params = await searchParams;
