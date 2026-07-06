@@ -271,6 +271,7 @@ h2 {
 
 .custom-board .board-hero > p,
 .custom-board .embed-hero > p {
+  color: var(--board-text);
   font-family: var(--board-description-font);
 }
 
