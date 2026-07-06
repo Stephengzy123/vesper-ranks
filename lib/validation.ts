@@ -4,7 +4,26 @@
 import { z } from "zod";
 
 const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, "Use a hex color.");
-const boardFont = z.enum(["system", "serif", "rounded", "mono", "display"]);
+const boardFont = z.enum([
+  "system",
+  "roboto",
+  "openSans",
+  "lato",
+  "montserrat",
+  "robotoMono",
+  "comfortaa",
+  "ebGaramond",
+  "merriweather",
+  "clean",
+  "serif",
+  "classic",
+  "rounded",
+  "humanist",
+  "editorial",
+  "mono",
+  "compact",
+  "display"
+]);
 const optionalUrl = z
   .string()
   .trim()
