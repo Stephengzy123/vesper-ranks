@@ -16,8 +16,8 @@ import { getLeaderboard } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import { headers } from "next/headers";
 import { EmbedCodeBox } from "@/components/embed-code-box";
+import { FontStyleControls } from "@/components/font-style-controls";
 import { PendingSubmitNotice } from "@/components/pending-submit-notice";
-import { boardFontCss, boardFontOptions } from "@/lib/board-fonts";
 
 type ManagePageProps = {
   params: Promise<{ slug: string }>;
@@ -214,52 +214,15 @@ export default async function ManagePage({ params, searchParams }: ManagePagePro
               <input name="gradientBackground" type="checkbox" defaultChecked={board.gradientBackground} />
               Use gradient background
             </label>
-            <div className="form-grid">
-              <label>
-                Title font
-                <select name="titleFont" defaultValue={board.titleFont}>
-                  {boardFontOptions.map((option) => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Description font
-                <select name="descriptionFont" defaultValue={board.descriptionFont}>
-                  {boardFontOptions.map((option) => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <label>
-              Entry row font
-              <select name="entryFont" defaultValue={board.entryFont}>
-                {boardFontOptions.map((option) => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-              </select>
-            </label>
-            <div className="font-preview-grid" aria-label="Saved font previews">
-              <div className="font-preview-card">
-                <span>Title</span>
-                <strong style={{ fontFamily: boardFontCss(board.titleFont) }}>{board.name}</strong>
-              </div>
-              <div className="font-preview-card">
-                <span>Description</span>
-                <p style={{ fontFamily: boardFontCss(board.descriptionFont) }}>
-                  {board.description || "This is how the leaderboard description will read."}
-                </p>
-              </div>
-              <div className="font-preview-card">
-                <span>Entry row</span>
-                <div className="font-preview-entry" style={{ fontFamily: boardFontCss(board.entryFont) }}>
-                  <b>1</b>
-                  <strong>{board.entries[0]?.name ?? "Sample entry"}</strong>
-                  <em>{(board.entries[0]?.value ?? 120).toLocaleString()}</em>
-                </div>
-              </div>
-            </div>
+            <FontStyleControls
+              titleFont={board.titleFont}
+              descriptionFont={board.descriptionFont}
+              entryFont={board.entryFont}
+              titleSample={board.name}
+              descriptionSample={board.description || "This is how the leaderboard description will read."}
+              entryNameSample={board.entries[0]?.name ?? "Sample entry"}
+              entryValueSample={board.entries[0]?.value ?? 120}
+            />
             <PendingSubmitNotice messages={["Saving style", "Taking longer than usual", "Almost there"]} />
             <button type="submit">Save style</button>
           </form>
